@@ -1,3 +1,45 @@
+#test commands to build and run this dockerfile
+#docker build . -f Dockerfile-app -t aregsar/phpfpm-prod
+#docker run -p 9000:9000 aregsar/phpfpm-prod
 
-#uses .dockerignore to avoid copying directories 
-#with COPY . /var/www
+
+#
+# build stage 
+#
+#FROM php:7.2.2-cli-stretch AS build
+FROM composer:1.6.3 AS build
+
+WORKDIR /var/www
+
+#COPY composer.lock composer.json ./
+
+#copy all sources minus .dockerignore 
+#also copies composer.lock and composer.json
+COPY . ./
+
+#since public directory is ignored explicitly copy index.php
+COPY public/index.php ./public/index.php
+
+#create vendors directory and installs dependancies from composer.json
+RUN composer install --no-dev --no-scripts --no-interaction
+
+#
+# run stage
+#
+FROM php:7.2.2-fpm-alpine
+
+#todo: should do this in build stage and copy installed file from there
+RUN docker-php-ext-install mcrypt mysqli pdo pdo_mysql openssl
+
+WORKDIR /var/www
+
+COPY --from=build ./ ./
+
+#allow app to write to cache and storage directories
+RUN chown -R www-data:www-data ./bootstrap/cache ./storage
+
+#RUN chgrp -R www-data ./storage ./bootstrap/cache && chmod -R ug+rwx ./storage ./bootstrap/cache
+
+EXPOSE 9000
+
+CMD ["php-fpm"]
