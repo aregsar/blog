@@ -1,0 +1,16 @@
+.git
+.idea
+.env
+node_modules
+vendor
+storage/framework/cache/**
+storage/framework/sessions/**
+storage/framework/views/**
+docs
+docker
+public
+resources/assets
+storage/framework/testing/**
+storage/app/public/**
+storage/logs/**
+

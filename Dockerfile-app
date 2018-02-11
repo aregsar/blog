@@ -1,0 +1,3 @@
+
+#uses .dockerignore to avoid copying directories 
+#with COPY . /var/www

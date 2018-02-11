@@ -86,3 +86,23 @@ php artisan config:cache
 
 ==================
 
+#yarn and node installation notes:
+#assumes node version manager n is installed.
+
+#install latest version of node
+sudo n latest
+
+#install version of node(installs globally and select that version)
+sudo n 8.9.4
+
+node -v
+
+#install yarn globally
+sudo npm install yarn -g
+
+#install npm packages from package.json
+#will generate yarn.lock and create node_modules directory first time
+yarn #same as yarn install
+
+#(optional)generate package.json in a new project
+yarn init
