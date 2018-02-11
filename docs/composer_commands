@@ -1,0 +1,21 @@
+
+
+#add dependacies to composer.json and vendor directory
+
+composer global require vendor/package:2.1.0
+
+composer require vendor/package:2.1.0
+
+#only install in require-dev section
+composer require-dev barryvdh/laravel-debugbar: 1.* 
+
+==================================
+
+#install dependencies from composer.json(re-creates composer.lock and vendors directory)
+
+composer install
+
+composer install --prefer-dist
+
+#for production install or production docker image build
+composer install --no-dev

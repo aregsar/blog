@@ -1,0 +1,56 @@
+
+# steps to add docker and config files to a new project
+
+cd into project directory run following commands:
+
+touch .dockerignore
+touch Dockerfile-app
+touch Dockerfile-web
+touch docker-compose.yml
+touch docker-build.sh
+touch public\index.html
+mkdir docker && cd docker
+mkdir nginx
+mkdir phpfpm
+cd nginx
+touch proxy.conf
+
+==============
+
+#minimal nginx server config in docker/nginx/proxy.conf
+
+server{
+  listen 80;
+  location / {
+    index  index.html;
+    root /var/www/public;
+  }
+}
+
+#the directory ./docker/nginx contains all nginx config files
+#docker/nginx/proxy.conf contains the site configuration
+#docker/nginx/nginx.conf contains the nginx configuration
+#by default the nginx web root is /usr/share/nginx/html 
+#but the nginx web root is overriden to /var/www/public in the docker/nginx/proxy.conf file
+
+
+==========================
+
+#this is a guide to how to specify paths for the Dockerfile-web COPY command
+
+#copy contents of the local ./public directory into the /var/www/public directory of docker image
+COPY ./public /var/www/public
+
+#copy the local file ./docker/nginx/proxy.conf to destination file /etc/nginx/conf.d/default.conf in the docker image
+COPY ./docker/nginx/proxy.conf /etc/nginx/conf.d/default.conf
+
+#copy the local file ./docker/nginx-conf/nginx.conf  to destination file /etc/nginx/nginx.conf in the docker image
+#COPY ./docker/nginx/nginx.conf   /etc/nginx/nginx.conf
+
+#COPY ./docker/nginx/fastcgi.conf   /etc/nginx/fastcgi.conf
+#COPY ./docker/nginx/fastcgi_params  /etc/nginx/fastcgi_params
+
+#Or copy contents of local ./docker/nginx-conf directory into /etc/nginx directory of the docker image
+#COPY ./docker/nginx    /etc/nginx
+
+=========================
