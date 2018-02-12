@@ -25,7 +25,7 @@ RUN yarn prod
 # copy files
 COPY public/favicon.ico ./public/favicon.ico
 COPY public/robots.txt ./public/robots.txt
-COPY public/index.html ./public/index.html
+COPY public/index.php ./public/index.php
 
 #
 # run stage 
