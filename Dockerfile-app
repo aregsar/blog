@@ -22,7 +22,21 @@ COPY database ./database
 RUN composer install --no-dev --no-scripts --no-interaction
 
 #copy all sources minus .dockerignore 
-COPY ./ ./
+#COPY ./ ./
+COPY app ./app
+COPY bootstrap ./bootstrap
+COPY config ./config
+COPY public/index.php ./public/index.php
+COPY public/mix-manifest.json ./public/mix-manifest.json
+COPY resources/lang ./resources/lang
+COPY resources/views ./resources/views
+COPY routes ./routes
+COPY storage ./storage
+COPY tests ./tests
+COPY .env ./.env
+COPY artisan ./artisan
+COPY phpunit.xml ./phpunit.xml
+COPY server.php ./server.php
 
 #
 # run stage

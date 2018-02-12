@@ -19,7 +19,7 @@ RUN yarn
 
 # build assets
 COPY resources/assets ./resources/assets
-COPY webpack.mix.js ./
+COPY webpack.mix.js ./webpack.mix.js 
 RUN yarn prod
 
 # copy files
