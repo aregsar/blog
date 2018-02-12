@@ -2,6 +2,12 @@
 node_modules
 vendor
 docs
+storage/framework/cache/**
+storage/framework/sessions/**
+storage/framework/views/**
+storage/framework/testing/**
+storage/app/**
+storage/logs/**
 
 
 
