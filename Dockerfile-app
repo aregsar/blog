@@ -6,22 +6,21 @@
 #
 # build stage 
 #
-#FROM php:7.2.2-cli-stretch AS build
 FROM composer:1.6.3 AS build
 
 WORKDIR /var/www
 
-#COPY composer.lock composer.json ./
+#only copy composer files so we won't install deps if other files change
+COPY composer.json composer.lock ./
 
-#copy all sources minus .dockerignore 
-#also copies composer.lock and composer.json
-COPY . ./
-
-#since public directory is ignored explicitly copy index.php
-COPY public/index.php ./public/index.php
+#composer autoloader needs to scan files in database directory
+COPY database ./database
 
 #create vendors directory and installs dependancies from composer.json
 RUN composer install --no-dev --no-scripts --no-interaction
+
+#copy all sources minus .dockerignore 
+COPY ./ ./
 
 #
 # run stage
@@ -29,16 +28,15 @@ RUN composer install --no-dev --no-scripts --no-interaction
 FROM php:7.2.2-fpm-alpine
 
 #todo: should do this in build stage and copy installed file from there
-RUN docker-php-ext-install mcrypt mysqli pdo pdo_mysql openssl
+RUN docker-php-ext-install pdo_mysql
 
 WORKDIR /var/www
 
-COPY --from=build ./ ./
+#copy over built application
+COPY --from=build /var/www ./
 
-#allow app to write to cache and storage directories
+#for some reaon after setting WORKDIR /var/www we are still in / root 
 RUN chown -R www-data:www-data ./bootstrap/cache ./storage
-
-#RUN chgrp -R www-data ./storage ./bootstrap/cache && chmod -R ug+rwx ./storage ./bootstrap/cache
 
 EXPOSE 9000
 

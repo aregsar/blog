@@ -8,7 +8,11 @@ storage/framework/sessions/**
 storage/framework/views/**
 docs
 docker
-public
+public/css
+public/js
+public/html
+public/facicon.ico
+public/web.config
 resources/assets
 storage/framework/testing/**
 storage/app/public/**
