@@ -2,13 +2,15 @@
 #docker build . -f Dockerfile-app -t aregsar/phpfpm-prod
 #docker run -p 9000:9000 aregsar/phpfpm-prod
 
+#todo: add bootstrap/cache/* to dockerignore?
+
 
 #
 # build stage 
 #
 FROM composer:1.6.3 AS build
 
-WORKDIR /var/www
+WORKDIR /app
 
 #only copy composer files so we won't install deps if other files change
 COPY composer.json composer.lock ./
@@ -33,7 +35,7 @@ RUN docker-php-ext-install pdo_mysql
 WORKDIR /var/www
 
 #copy over built application
-COPY --from=build /var/www ./
+COPY --from=build /app ./
 
 #for some reaon after setting WORKDIR /var/www we are still in / root 
 RUN chown -R www-data:www-data ./bootstrap/cache ./storage

@@ -6,15 +6,17 @@ vendor
 storage/framework/cache/**
 storage/framework/sessions/**
 storage/framework/views/**
+storage/framework/testing/**
+storage/app/**
+storage/logs/**
 docs
 docker
+resources/assets
 public/css
 public/js
 public/html
 public/facicon.ico
 public/web.config
-resources/assets
-storage/framework/testing/**
-storage/app/public/**
-storage/logs/**
+
+
 
