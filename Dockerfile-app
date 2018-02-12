@@ -19,7 +19,7 @@ COPY composer.json composer.lock ./
 COPY database ./database
 
 #create vendors directory and installs dependancies from composer.json
-RUN composer install --no-dev --no-scripts --no-interaction
+RUN composer install --no-scripts --no-interaction
 
 #copy all sources minus .dockerignore 
 #COPY ./ ./
