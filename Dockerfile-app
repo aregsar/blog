@@ -33,10 +33,10 @@ COPY resources/views ./resources/views
 COPY routes ./routes
 COPY storage ./storage
 COPY tests ./tests
-COPY .env ./.env
-COPY artisan ./artisan
+#COPY .env ./.env
+#COPY artisan ./artisan
 COPY phpunit.xml ./phpunit.xml
-COPY server.php ./server.php
+#COPY server.php ./server.php
 
 #
 # run stage
@@ -51,7 +51,6 @@ WORKDIR /var/www
 #copy over built application
 COPY --from=build /app ./
 
-#for some reaon after setting WORKDIR /var/www we are still in / root 
 RUN chown -R www-data:www-data ./bootstrap/cache ./storage
 
 EXPOSE 9000
