@@ -19,7 +19,14 @@ COPY composer.json composer.lock ./
 COPY database ./database
 
 #create vendors directory and installs dependancies from composer.json
-RUN composer install --no-scripts --no-interaction
+RUN composer install \
+    --ignore-platform-reqs \
+    --no-ansi \
+    --no-autoloader \
+    --no-dev \
+    --no-interaction \
+    --no-scripts
+
 
 #copy all required files and directories 
 #COPY ./ ./
@@ -37,8 +44,10 @@ COPY app ./app
 #COPY tests ./tests
 #COPY phpunit.xml ./phpunit.xml
 
-#uncomment artisan if we want to use image to run artisan commands
-#COPY artisan ./artisan
+#artisan required for composer dump-autoload command
+COPY artisan ./artisan 
+
+RUN composer dump-autoload --optimize --classmap-authoritative
 
 #
 # run stage
