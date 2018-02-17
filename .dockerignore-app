@@ -32,5 +32,8 @@ public/favicon.ico
 public/robots.txt
 public/web.config
 public/.htaccess
+public/dist/**
 docker/nginx
+bootstrap/cache/**
+
 

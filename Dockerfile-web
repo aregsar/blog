@@ -1,19 +1,11 @@
-
-#test commands to build and run this dockerfile
-#docker build . -f Dockerfile-web -t aregsar/nginx-prod
-#docker run -p 8080:80 aregsar/nginx-prod
-
 #
 # build stage
-# note: we explicity copy files and directories so we dont have to
-# rely on .dockerignore file that is used for the Dockerfile-app
-# this is because all our Dockerfile-* files are at projet root
 #
 FROM node:8.9.4 AS build
 
 WORKDIR /app
 
-# install dependencies (creates node_modules, updates yarn.lock)
+# install dependencies creating node_modules and updating yarn.lock
 COPY package.json yarn.lock ./
 RUN yarn
 
@@ -25,7 +17,7 @@ RUN yarn prod
 # copy files
 COPY public/favicon.ico ./public/favicon.ico
 COPY public/robots.txt ./public/robots.txt
-COPY public/index.php ./public/index.php
+#COPY public/index.php ./public/index.php
 
 #
 # run stage 

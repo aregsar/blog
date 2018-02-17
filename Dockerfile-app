@@ -1,10 +1,3 @@
-#test commands to build and run this dockerfile
-#docker build . -f Dockerfile-app -t aregsar/phpfpm-prod
-#docker run -p 9000:9000 aregsar/phpfpm-prod
-
-#todo: add bootstrap/cache/* to dockerignore?
-
-
 #
 # build stage 
 #
@@ -15,10 +8,9 @@ WORKDIR /app
 #only copy composer files so we won't install deps if other files change
 COPY composer.json composer.lock ./
 
-#composer autoloader needs to scan files in database directory
-COPY database ./database
-
 #create vendors directory and installs dependancies from composer.json
+#note --no-dev option requires using .env.prod
+#note --no-autoloader option requires running composer dump-autoload
 RUN composer install \
     --ignore-platform-reqs \
     --no-ansi \
@@ -27,27 +19,30 @@ RUN composer install \
     --no-interaction \
     --no-scripts
 
-
 #copy all required files and directories 
-#COPY ./ ./
-COPY storage ./storage
 COPY resources/lang ./resources/lang
 COPY public/index.php ./public/index.php
 COPY bootstrap ./bootstrap
 COPY public/mix-manifest.json ./public/mix-manifest.json
+COPY database ./database
 COPY config ./config
 COPY routes ./routes
 COPY resources/views ./resources/views
 COPY app ./app
+COPY storage ./storage
 
 #uncomment test files in case we want to pass tests before image is built
 #COPY tests ./tests
 #COPY phpunit.xml ./phpunit.xml
 
+#should we just copy everything instead of individual files and directories?
+#COPY ./ ./ 
+
 #artisan required for composer dump-autoload command
 COPY artisan ./artisan 
 
 RUN composer dump-autoload --optimize --classmap-authoritative
+
 
 #
 # run stage

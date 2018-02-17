@@ -18,6 +18,7 @@ artisan
 node_modules
 vendor
 docs
+public/index.php
 public/.htaccess
 public/mix-manifest.json
 app
@@ -29,7 +30,8 @@ tests
 routes
 resources/views
 resources/lang
-docker/phpfpms
+docker/phpfpm
+
 
 
 
