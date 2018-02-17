@@ -7,7 +7,9 @@
 .dockerignore
 .dockerignore-app
 .dockerignore-web
-docker_build.sh
+docker-build.sh
+docker-build-app.sh
+docker-build-web.sh
 docker-compose.yml
 readme.md
 phpunit.xml

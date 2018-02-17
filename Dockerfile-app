@@ -21,22 +21,24 @@ COPY database ./database
 #create vendors directory and installs dependancies from composer.json
 RUN composer install --no-scripts --no-interaction
 
-#copy all sources minus .dockerignore 
+#copy all required files and directories 
 #COPY ./ ./
-COPY app ./app
-COPY bootstrap ./bootstrap
-COPY config ./config
-COPY public/index.php ./public/index.php
-COPY public/mix-manifest.json ./public/mix-manifest.json
-COPY resources/lang ./resources/lang
-COPY resources/views ./resources/views
-COPY routes ./routes
 COPY storage ./storage
-COPY tests ./tests
-#COPY .env ./.env
+COPY resources/lang ./resources/lang
+COPY public/index.php ./public/index.php
+COPY bootstrap ./bootstrap
+COPY public/mix-manifest.json ./public/mix-manifest.json
+COPY config ./config
+COPY routes ./routes
+COPY resources/views ./resources/views
+COPY app ./app
+
+#uncomment test files in case we want to pass tests before image is built
+#COPY tests ./tests
+#COPY phpunit.xml ./phpunit.xml
+
+#uncomment artisan if we want to use image to run artisan commands
 #COPY artisan ./artisan
-COPY phpunit.xml ./phpunit.xml
-#COPY server.php ./server.php
 
 #
 # run stage

@@ -3,17 +3,26 @@
 
 cd into project directory run following commands:
 
-touch .dockerignore
+touch .dockerignore-app
+touch .dockerignore-web
 touch Dockerfile-app
 touch Dockerfile-web
 touch docker-compose.yml
+touch docker-build-app.sh
+touch docker-build-web.sh
 touch docker-build.sh
-touch public\index.html
+cp .env .env.prod
 mkdir docker && cd docker
 mkdir nginx
 mkdir phpfpm
 cd nginx
 touch proxy.conf
+touch nginx.conf
+cd ../phpfpm
+touch fpm-php.ini
+touch cli-php.ini
+
+
 
 ==============
 
