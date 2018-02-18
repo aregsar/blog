@@ -34,6 +34,6 @@ public/web.config
 public/.htaccess
 public/dist/**
 docker/nginx
-bootstrap/cache/**
+#bootstrap/cache/**
 
 

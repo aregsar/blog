@@ -14,7 +14,7 @@
 docker-compose down --volumes
 composer install
 composer update
-php artisan config:cache
+#php artisan config:cache
 cp .dockerignore-app .dockerignore
 docker build . -f Dockerfile-app -t aregsar/phpfpm-prod
 rm .dockerignore

@@ -31,6 +31,7 @@ COPY resources/views ./resources/views
 COPY app ./app
 COPY storage ./storage
 
+
 #uncomment test files in case we want to pass tests before image is built
 #COPY tests ./tests
 #COPY phpunit.xml ./phpunit.xml
@@ -71,6 +72,7 @@ WORKDIR /var/www
 COPY --from=build /app ./
 
 RUN chown -R www-data:www-data ./bootstrap/cache ./storage
+#RUN chmod -R 777 ./storage
 
 EXPOSE 9000
 
