@@ -22,6 +22,12 @@ cd ../phpfpm
 touch fpm-php.ini
 touch cli-php.ini
 
+#modify keys in .env.prod to:
+#APP_ENV=production
+#APP_DEBUG=false
+
+
+
 
 
 ==============

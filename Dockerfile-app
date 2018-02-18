@@ -5,12 +5,14 @@ FROM composer:1.6.3 AS build
 
 WORKDIR /app
 
-#only copy composer files so we won't install deps if other files change
+# only copy composer files so we won't install deps if other files change
 COPY composer.json composer.lock ./
 
-#create vendors directory and installs dependancies from composer.json
-#note --no-dev option requires using .env.prod
-#note --no-autoloader option requires running composer dump-autoload
+# create vendors directory and installs dependancies from composer.json
+# will not update composer.lock
+# note: --no-dev option requires using .env.prod with
+# APP_ENV=production and APP_DEBUG=false
+# note: --no-autoloader option requires running composer dump-autoload
 RUN composer install \
     --ignore-platform-reqs \
     --no-ansi \
@@ -19,7 +21,7 @@ RUN composer install \
     --no-interaction \
     --no-scripts
 
-#copy all required files and directories 
+# copy all required files and directories 
 COPY resources/lang ./resources/lang
 COPY public/index.php ./public/index.php
 COPY bootstrap ./bootstrap
@@ -31,15 +33,13 @@ COPY resources/views ./resources/views
 COPY app ./app
 COPY storage ./storage
 
-
 #uncomment test files in case we want to pass tests before image is built
 #COPY tests ./tests
 #COPY phpunit.xml ./phpunit.xml
 
-#artisan required for composer dump-autoload command
+# artisan required for composer dump-autoload command
 COPY artisan ./artisan 
 
-#should we just copy everything instead of individual files and directories?
 #COPY ./ ./ 
 
 #http://developed.be/2014/08/29/composer-dump-autoload-laravel/
@@ -54,9 +54,11 @@ COPY artisan ./artisan
 #generate classmap again so that new generated config file is available
 RUN composer dump-autoload --classmap-authoritative
 
-
-
-
+# run /bin/sh -c docker-php-ext-install pdo_mysql
+# builds and copies pdo_mysql.so file to:
+# Libraries have been installed in: /usr/src/php/ext/pdo_mysql/modules
+# cp ./.libs/pdo_mysql.so /usr/src/php/ext/pdo_mysql/modules/pdo_mysql.so
+#RUN docker-php-ext-install pdo_mysql
 
 #
 # run stage
@@ -65,6 +67,9 @@ FROM php:7.2.2-fpm-alpine
 
 #todo: should do this in build stage and copy installed file from there
 RUN docker-php-ext-install pdo_mysql
+
+# copy over built php extesions 
+#COPY --from=build /usr/src/php/ext/pdo_mysql/modules/pdo_mysql.so /usr/src/php/ext/pdo_mysql/modules/pdo_mysql.so
 
 WORKDIR /var/www
 
