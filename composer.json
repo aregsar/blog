@@ -21,7 +21,8 @@
     "autoload": {
         "classmap": [
             "database/seeds",
-            "database/factories"
+            "database/factories",
+            "bootstrap/cache"
         ],
         "psr-4": {
             "App\\": "app/"
