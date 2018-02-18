@@ -14,6 +14,9 @@
 #to stop both running containers, type:
 #docker-compose down --volumes
 
+docker-compose down --volumes
+composer install
+php artisan config:cache
 cp .dockerignore-web .dockerignore
 docker build . -f Dockerfile-web -t aregsar/nginx-prod
 cp .dockerignore-app .dockerignore

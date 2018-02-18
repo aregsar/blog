@@ -11,6 +11,9 @@
 #to run this built image standalone, type:
 #docker run -p 9090:9000 aregsar/phpfpm-prod
 
+docker-compose down --volumes
+composer install
+php artisan config:cache
 cp .dockerignore-app .dockerignore
 docker build . -f Dockerfile-app -t aregsar/phpfpm-prod
 rm .dockerignore

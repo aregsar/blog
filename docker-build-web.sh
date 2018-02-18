@@ -11,6 +11,7 @@
 #to run this built image standalone, type:
 #docker run -p 8080:80 aregsar/nginx-prod
 
+docker-compose down --volumes
 cp .dockerignore-web .dockerignore
 docker build . -f Dockerfile-web -t aregsar/nginx-prod
 rm .dockerignore

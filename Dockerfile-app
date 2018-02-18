@@ -41,11 +41,20 @@ COPY artisan ./artisan
 #should we just copy everything instead of individual files and directories?
 #COPY ./ ./ 
 
-#generate classmap
-RUN composer dump-autoload --optimize --classmap-authoritative
+#http://developed.be/2014/08/29/composer-dump-autoload-laravel/
+#generate classmap so that artisan is available
+#RUN composer dump-autoload --optimize
 
-#combine all config files in config directory into a single file and write it to the storage directory
+#https://laravel.com/docs/5.6/configuration#configuration-caching
+#combine all config files in config directory into the bootstrap/cache/config.php file
 #RUN php artisan config:cache
+
+#https://getcomposer.org/doc/articles/autoloader-optimization.md
+#generate classmap again so that new generated config file is available
+RUN composer dump-autoload --classmap-authoritative
+
+
+
 
 
 #
