@@ -17,20 +17,25 @@ RUN yarn prod
 # copy files
 COPY public/favicon.ico ./public/favicon.ico
 COPY public/robots.txt ./public/robots.txt
-#COPY public/index.php ./public/index.php
 
 #
 # run stage 
 #
 FROM nginx:1.12-alpine
 
+RUN addgroup -S mygroup && adduser -S -G mygroup myuser 
+#USER myuser
+
 # replace content of default.conf with content of proxy.conf 
 COPY docker/nginx/proxy.conf /etc/nginx/conf.d/default.conf
 COPY --from=build /app/public /var/www/public
 
 # forward request logs to Docker log collector
-#RUN ln -sf /dev/stdout /var/log/nginx/access.log
-#RUN ln -sf /dev/stderr /var/log/nginx/error.log
+RUN ln -sf /dev/stdout /var/log/nginx/access.log
+RUN ln -sf /dev/stderr /var/log/nginx/error.log
+
+#change default docker container stop signal from SIGTERM to SIGQUIT for graceful shutdown
+STOPSIGNAL SIGQUIT
 
 EXPOSE 80 443
 
