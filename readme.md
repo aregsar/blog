@@ -1,59 +1,47 @@
-<p align="center"><img src="https://laravel.com/assets/img/components/logo-laravel.svg"></p>
 
-<p align="center">
-<a href="https://travis-ci.org/laravel/framework"><img src="https://travis-ci.org/laravel/framework.svg" alt="Build Status"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://poser.pugx.org/laravel/framework/d/total.svg" alt="Total Downloads"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://poser.pugx.org/laravel/framework/v/stable.svg" alt="Latest Stable Version"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://poser.pugx.org/laravel/framework/license.svg" alt="License"></a>
-</p>
+## About Laravel Blog (v0.1)
 
-## About Laravel
+Laravel Blog is dockerized laravel application boilerplate intended to demonstrate best practices for deploying laravel application containers to production. The project contains  Dockerfiles and build scripts for building nginx and php-fpm production images from a Laravel project using multi stage docker builds. It also contains a docker-compose file to run the built images as containers to run Laravel in production.
 
-Laravel is a web application framework with expressive, elegant syntax. We believe development must be an enjoyable and creative experience to be truly fulfilling. Laravel attempts to take the pain out of development by easing common tasks used in the majority of web projects, such as:
+This is still very much a work in progress.
 
-- [Simple, fast routing engine](https://laravel.com/docs/routing).
-- [Powerful dependency injection container](https://laravel.com/docs/container).
-- Multiple back-ends for [session](https://laravel.com/docs/session) and [cache](https://laravel.com/docs/cache) storage.
-- Expressive, intuitive [database ORM](https://laravel.com/docs/eloquent).
-- Database agnostic [schema migrations](https://laravel.com/docs/migrations).
-- [Robust background job processing](https://laravel.com/docs/queues).
-- [Real-time event broadcasting](https://laravel.com/docs/broadcasting).
+- [Cloning and setting up the repo]
+- clone the repo
+- chmod +x docker-build.sh
+- chmod +x docker-build-app.sh
+- chmod +x docker-build-web.sh
+- cp .env.example .env.prod
 
-Laravel is accessible, yet powerful, providing tools needed for large, robust applications.
+- in .env.prod set these keys:
+- APP_ENV=production
+- APP_DEBUG=false
 
-## Learning Laravel
+- [building and running the images]
+- ./docker-build.sh
+- docker-compose up -d
 
-Laravel has the most extensive and thorough [documentation](https://laravel.com/docs) and video tutorial library of any modern web application framework, making it a breeze to get started learning the framework.
+- [stoping the containers]
+- docker-compose down --volumes
 
-If you're not in the mood to read, [Laracasts](https://laracasts.com) contains over 1100 video tutorials on a range of topics including Laravel, modern PHP, unit testing, JavaScript, and more. Boost the skill level of yourself and your entire team by digging into our comprehensive video library.
+- [The following resources were used in bulding this boilerplate]
 
-## Laravel Sponsors
+http://geekyplatypus.com/dockerise-your-php-application-with-nginx-and-php7-fpm/
 
-We would like to extend our thanks to the following sponsors for helping fund on-going Laravel development. If you are interested in becoming a sponsor, please visit the Laravel [Patreon page](https://patreon.com/taylorotwell):
+https://github.com/joelshepherd/laravel-docker-template/blob/master/.docker/build/Dockerfile
 
-- **[Vehikl](https://vehikl.com/)**
-- **[Tighten Co.](https://tighten.co)**
-- **[Kirschbaum Development Group](https://kirschbaumdevelopment.com)**
-- **[British Software Development](https://www.britishsoftware.co)**
-- [Fragrantica](https://www.fragrantica.com)
-- [SOFTonSOFA](https://softonsofa.com/)
-- [User10](https://user10.com)
-- [Soumettre.fr](https://soumettre.fr/)
-- [CodeBrisk](https://codebrisk.com)
-- [1Forge](https://1forge.com)
-- [TECPRESSO](https://tecpresso.co.jp/)
-- [Pulse Storm](http://www.pulsestorm.net/)
-- [Runtime Converter](http://runtimeconverter.com/)
-- [WebL'Agence](https://weblagence.com/)
+https://medium.com/@shakyShane/laravel-docker-part-1-setup-for-development-e3daaefaf3c
 
-## Contributing
+https://medium.com/@shakyShane/laravel-docker-part-2-preparing-for-production-9c6a024e9797
 
-Thank you for considering contributing to the Laravel framework! The contribution guide can be found in the [Laravel documentation](https://laravel.com/docs/contributions).
+https://medium.com/@othillo/adding-composer-to-php-docker-images-using-multi-stage-builds-2a10967ae6c1
 
-## Security Vulnerabilities
+https://chrisguitarguy.com/2017/12/16/multi-stage-docker-php/
 
-If you discover a security vulnerability within Laravel, please send an e-mail to Taylor Otwell via [taylor@laravel.com](mailto:taylor@laravel.com). All security vulnerabilities will be promptly addressed.
+https://blog.hasura.io/an-exhaustive-guide-to-writing-dockerfiles-for-node-js-web-apps-bbee6bd2f3c4
+
+https://medium.com/@shakyShane/lets-talk-about-docker-artifacts-27454560384f
+
 
 ## License
 
-The Laravel framework is open-sourced software licensed under the [MIT license](https://opensource.org/licenses/MIT).
+This is open-sourced software licensed under the [MIT license](https://opensource.org/licenses/MIT).
