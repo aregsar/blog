@@ -15,8 +15,8 @@
 #docker-compose down --volumes
 
 docker-compose down --volumes
-composer install
-composer update
+#composer install
+#composer update
 #php artisan config:cache
 cp .dockerignore-web .dockerignore
 docker build . -f Dockerfile-web -t aregsar/nginx-prod

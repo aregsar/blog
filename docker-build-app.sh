@@ -12,8 +12,8 @@
 #docker run -p 9090:9000 aregsar/phpfpm-prod
 
 docker-compose down --volumes
-composer install
-composer update
+#composer install
+#composer update
 #php artisan config:cache
 cp .dockerignore-app .dockerignore
 docker build . -f Dockerfile-app -t aregsar/phpfpm-prod
